@@ -4,6 +4,8 @@ const verifyOTP = async (req, res) => {
     try {
         const { email, enteredOTP } = req.body;
 
+        
+
         const otpData = await Otp.findOne({ email });
 
         if (!otpData) {

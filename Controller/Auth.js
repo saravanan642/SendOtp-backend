@@ -126,7 +126,7 @@ const sendOtp = async (req, res) => {
             </div>
         `;
 
-        // Send email
+        
         const isMailSent = await EmailNotification({
             receiverEmail: userEmail,
             subject: "OTP Verification",
