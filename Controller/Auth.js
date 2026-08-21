@@ -15,12 +15,10 @@ const sendOtp = async (req, res) => {
 
         const userEmail = email.toLowerCase();
 
-        // Check whether user already exists
         const existingUser = await UserModel.findOne({
             email: userEmail
         });
 
-        // For Registration OTP
         if (existingUser) {
             return res.json({
                 success: false,
@@ -28,13 +26,11 @@ const sendOtp = async (req, res) => {
             });
         }
 
-        // Generate 6 digit OTP
         const otp = Math.floor(100000 + Math.random() * 900000);
 
-        // OTP expires in 5 minutes
+        
         const expiry = new Date(Date.now() + 5 * 60 * 1000);
 
-        // Save OTP
         const updateOtp = await OtpModel.updateOne(
             {
                 email: userEmail
