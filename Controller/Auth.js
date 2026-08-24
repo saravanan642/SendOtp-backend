@@ -66,6 +66,7 @@ const sendOtp = async (req, res) => {
                                     <td align="center"
                                         style="background:linear-gradient(135deg,#0f172a,#1e3a8a);padding:35px 20px;">
 
+                                        
                                         <h1 style="margin:0;color:#ffffff;font-size:28px;">
                                             NVKS Technovation
                                         </h1>
