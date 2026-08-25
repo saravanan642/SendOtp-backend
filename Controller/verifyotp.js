@@ -8,12 +8,13 @@ const verifyOTP = async (req, res) => {
         if (!name || !email || !password || !enteredOTP || !contact || !age || !gender || !address || !city || !state) { 
             return res.json({ success: false, message: "All fields are required" }); 
         } 
- 
+
         const otpData = await Otp.findOne({ email }); 
- 
         if (!otpData) { 
             return res.json({ success: false, message: "Email not found" }); 
         } 
+        
+
  
         if (Number(otpData.otp) !== Number(enteredOTP)) { 
             return res.json({ success: false, message: "Invalid Email" }); 
