@@ -34,7 +34,6 @@ const userSchema = new mongoose.Schema({
     address: {
         type: String
     },
-
     city: {
         type: String
     },
@@ -42,6 +41,8 @@ const userSchema = new mongoose.Schema({
     state: {
         type: String
     },
+
+    role : {type : String , enum : ["student", "staff","hod","md"] , required : true , default : "student"},
 
     createdAt: {
         type: Date,

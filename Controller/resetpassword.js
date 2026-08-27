@@ -7,64 +7,47 @@ const resetPassword = async (req, res) => {
         const {
             email,
             otp,
-            oldPassword,
+            currentPassword,
             newPassword,
             confirmPassword
         } = req.body;
 
-        // 1. All fields check
-        if (!email || !otp || !oldPassword || !newPassword || !confirmPassword) {
-            return res.json({
-                success: false,
-                message: "All fields are required"
-            });
+        
+        if (!email || !otp || !currentPassword || !newPassword || !confirmPassword) {
+            return res.json({ success: false, message: "All fields are required" });
         }
 
         const userEmail = email.trim().toLowerCase();
 
-        // 2. Check OTP + Email
+      
         const otpData = await Otp.findOne({
             email: userEmail
         });
 
         console.log("OTP from DB:", otpData);
 
-        if (!otpData) {
-            return res.json({
-                success: false,
-                message: "OTP not found"
-            });
+        if (!otpData) { return res.json({ success: false, message: "OTP not found" });
         }
 
-        // 3. Check OTP expiry
+       
         if (new Date() > otpData.expiresAt) {
-            await Otp.deleteOne({
+             await Otp.deleteOne({
                 email: userEmail
             });
 
-            return res.json({
-                success: false,
-                message: "OTP expired"
-            });
+            return res.json({ success: false, message: "OTP expired" });
         }
 
-        // 4. Check OTP match
+        
         if (String(otpData.otp) !== String(otp)) {
-            return res.json({
-                success: false,
-                message: "Invalid OTP"
-            });
+            return res.json({ success: false,  message: "Invalid OTP" });
         }
 
-        // 5. Check new password and confirm password
+       
         if (newPassword !== confirmPassword) {
-            return res.json({
-                success: false,
-                message: "Password does not match"
-            });
+            return res.json({ success: false,  message: "Password does not match" });
         }
 
-        // 6. Find User by Email
         const user = await User.findOne({
             email: {
                 $regex: `^${userEmail}$`,
@@ -75,18 +58,11 @@ const resetPassword = async (req, res) => {
         console.log("User from DB:", user);
 
         if (!user) {
-            return res.json({
-                success: false,
-                message: "User not found"
-            });
+            return res.json({ success: false, message: "User not found"});
         }
 
-        // 7. Check Old Password
-        if (user.password !== oldPassword) {
-            return res.json({
-                success: false,
-                message: "Old password is incorrect"
-            });
+        if (user.password !== currentPassword) {
+            return res.json({ success: false, message: "Old password is incorrect" });
         }
 
         // 8. Set New Password
@@ -100,10 +76,7 @@ const resetPassword = async (req, res) => {
             email: userEmail
         });
 
-        return res.json({
-            success: true,
-            message: "Password changed successfully"
-        });
+        return res.json({ success: true, message: "Password changed successfully"  });
 
     } catch (error) {
 

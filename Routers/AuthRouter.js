@@ -1,6 +1,6 @@
 const express = require("express");
 
-const { sendOtp } = require("../Controller/Auth");
+const { sendOtp ,verifyOTP,forgotPassword,resetPassword} = require("../Controller/Auth");
 const { verifyOTP } = require("../Controller/verifyotp");
 const forgotPassword = require("../Controller/forgetpassword");
 const  resetPassword  = require("../Controller/resetpassword")
