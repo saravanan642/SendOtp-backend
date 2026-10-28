@@ -12,7 +12,7 @@ const EmailNotification = async ({
             service: "gmail",
             auth: {
                user: "saravanansenthil605@gmail.com",
-                pass: "ofof ulkb boyy aopn"
+                pass: "ddmj kjkt ckoh rimk"
             }
         });
 
